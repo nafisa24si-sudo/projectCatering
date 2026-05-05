@@ -21,10 +21,10 @@ function Header() {
         <button className="icon-btn">📊</button>
         <button className="icon-btn">⚙️</button>
         <div className="user-profile">
-          <div className="avatar">👤</div>
+          <div className="avatar">AU</div>
           <div className="user-info">
-            <span>Selamat datang,</span>
-            <strong>Admin Catering</strong>
+            <span>Admin User</span>
+            <strong>admin@nekoshop.com</strong>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ function Sidebar() {
           Catering
           <span className="dot" />
         </div>
-        <div className="sidebar-subtitle">Sistem Manajemen Catering</div>
+        <div className="sidebar-subtitle">Admin Panel</div>
       </div>
       <nav className="sidebar-nav">
         <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
