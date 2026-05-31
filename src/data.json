@@ -1,0 +1,89 @@
+{
+  "dashboard": {
+    "totalMenus": 256,
+    "totalOrders": 2260,
+    "totalCustomers": 3730,
+    "revenue": 125000000,
+    "monthlyData": {
+      "meals": 50,
+      "expense": 46
+    }
+  },
+  "user": {
+    "name": "Mahmudul Hasan",
+    "greeting": "Good Morning!"
+  },
+  "menus": [
+    {
+      "id": 1,
+      "name": "Chicken Hell",
+      "price": 12500,
+      "status": "On The Way",
+      "time": "3:09 PM",
+      "image": "https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=100"
+    },
+    {
+      "id": 2,
+      "name": "Swe Dish",
+      "price": 15000,
+      "status": "Delivered",
+      "time": "Yesterday",
+      "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=100"
+    },
+    {
+      "id": 3,
+      "name": "Fish Hell Veg",
+      "price": 18000,
+      "status": "Delivered",
+      "time": "Yesterday",
+      "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=100"
+    },
+    {
+      "id": 4,
+      "name": "Grilled Meat",
+      "price": 25000,
+      "status": "Canceled",
+      "time": "Yesterday",
+      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=100"
+    }
+  ],
+  "packages": [
+    {
+      "id": 1,
+      "name": "Weekly or monthly package for events",
+      "rating": 4.5,
+      "reviews": 209,
+      "quantity": "4x",
+      "price": 12.5,
+      "total": 456,
+      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&h=400&fit=crop"
+    },
+    {
+      "id": 2,
+      "name": "Weekly or monthly package for family",
+      "rating": 4.5,
+      "reviews": 219,
+      "quantity": "3x",
+      "price": 12.5,
+      "total": 456,
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=400&fit=crop"
+    },
+    {
+      "id": 3,
+      "name": "Weekly or monthly package for bachelor",
+      "rating": 4.5,
+      "reviews": 219,
+      "quantity": "2x",
+      "price": 12.5,
+      "total": 456,
+      "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=400&fit=crop"
+    }
+  ],
+  "wallet": {
+    "balance": 5698,
+    "points": 56254,
+    "vouchers": 6786,
+    "cashback": 9979,
+    "cardHolder": "Mahmudul Hasan"
+  }
+}
