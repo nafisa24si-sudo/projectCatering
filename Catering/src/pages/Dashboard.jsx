@@ -13,6 +13,23 @@ import {
 } from "react-icons/fa";
 import PageHeader from "../components/PageHeader";
 import data from "../data.json";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const statusStyles = {
   Cooking: "bg-[#FFE3D6] text-[#D1593B]",
@@ -81,6 +98,10 @@ const categories = [
 
 export default function Dashboard() {
   const [stats, setStats] = useState({ orders: 0, revenue: 0, customers: 0, packages: 0 });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [searchMenu, setSearchMenu] = useState("");
+  const [newOrder, setNewOrder] = useState({ customer: "", menu: "" });
 
   useEffect(() => {
     const values = {
@@ -118,12 +139,61 @@ export default function Dashboard() {
     }).format(value);
   };
 
+  const handleCreateOrder = () => {
+    if (newOrder.customer && newOrder.menu) {
+      console.log("Order baru dibuat:", newOrder);
+      setNewOrder({ customer: "", menu: "" });
+      setIsDialogOpen(false);
+    }
+  };
+
+  const filteredOrders = recentOrders.filter((order) => {
+    const matchesStatus = !selectedStatus || order.status === selectedStatus;
+    return matchesStatus;
+  });
+
+  const filteredMenus = popularMenus.filter((menu) => {
+    return menu.name.toLowerCase().includes(searchMenu.toLowerCase());
+  });
+
   return (
     <div className="space-y-8 p-6">
       <PageHeader title="Dasbor Katering" breadcrumb={[{ name: "Dasbor", path: "/" }]}>
-        <button className="inline-flex items-center justify-center rounded-[2rem] bg-[#E76F51] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#E76F51]/20 transition hover:bg-[#cf5f49]">
-          Buat Pesanan
-        </button>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="rounded-[2rem] bg-[#E76F51] px-6 py-3 font-semibold text-white shadow-lg shadow-[#E76F51]/20 hover:bg-[#cf5f49]">
+              Buat Pesanan
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md rounded-[2rem]">
+            <DialogHeader>
+              <DialogTitle>Buat Pesanan Baru</DialogTitle>
+              <DialogDescription>
+                Tambahkan pesanan baru untuk pelanggan catering.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <Input
+                placeholder="Nama Pelanggan"
+                value={newOrder.customer}
+                onChange={(e) => setNewOrder({ ...newOrder, customer: e.target.value })}
+                className="rounded-[1rem]"
+              />
+              <Input
+                placeholder="Pilih Menu"
+                value={newOrder.menu}
+                onChange={(e) => setNewOrder({ ...newOrder, menu: e.target.value })}
+                className="rounded-[1rem]"
+              />
+              <Button 
+                onClick={handleCreateOrder}
+                className="w-full rounded-[1rem] bg-[#E76F51] text-white hover:bg-[#cf5f49]"
+              >
+                Buat Pesanan
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </PageHeader>
 
       <div className="grid gap-6 xl:grid-cols-[1.6fr_0.9fr]">
@@ -212,8 +282,14 @@ export default function Dashboard() {
               </div>
               <span className="rounded-full bg-[#FFE7DC] px-4 py-2 text-sm font-semibold text-[#E76F51]">Pilihan Terbaik</span>
             </div>
+            <Input
+              placeholder="Cari menu..."
+              value={searchMenu}
+              onChange={(e) => setSearchMenu(e.target.value)}
+              className="mt-4 rounded-[1rem] border-[#F4A261]/30"
+            />
             <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {popularMenus.map((menu) => (
+              {filteredMenus.map((menu) => (
                 <div key={menu.id} className="group overflow-hidden rounded-[1.75rem] border border-[#F4A261]/20 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
                   <div className="overflow-hidden">
                     <img src={menu.image} alt={menu.name} className="h-40 w-full object-cover transition duration-300 group-hover:scale-105" />
@@ -292,9 +368,23 @@ export default function Dashboard() {
             <p className="text-sm uppercase tracking-[0.25em] text-[#E76F51]">Pesanan Terbaru</p>
             <h2 className="mt-2 text-2xl font-bold text-[#2D2D2D]">Pengiriman terbaru</h2>
           </div>
-          <button className="inline-flex items-center justify-center rounded-[2rem] bg-[#E76F51] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#E76F51]/20 transition hover:bg-[#cf5f49]">
-            Lihat Semua
-          </button>
+          <div className="flex gap-3">
+            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+              <SelectTrigger className="w-40 rounded-[1rem] border-[#F4A261]/30">
+                <SelectValue placeholder="Filter Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Semua Status</SelectItem>
+                <SelectItem value="Delivered">Delivered</SelectItem>
+                <SelectItem value="Cooking">Cooking</SelectItem>
+                <SelectItem value="Preparing">Preparing</SelectItem>
+                <SelectItem value="Cancelled">Cancelled</SelectItem>
+              </SelectContent>
+            </Select>
+            <button className="inline-flex items-center justify-center rounded-[2rem] bg-[#E76F51] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#E76F51]/20 transition hover:bg-[#cf5f49]">
+              Lihat Semua
+            </button>
+          </div>
         </div>
         <div className="mt-5 overflow-x-auto">
           <table className="min-w-full text-left text-sm text-[#2D2D2D]">
@@ -308,7 +398,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#F4A261]/30">
-              {recentOrders.map((order, index) => (
+              {filteredOrders.map((order, index) => (
                 <tr key={order.id} className={`transition ${index % 2 === 0 ? "bg-[#FFF5EB]" : "bg-white"} hover:bg-[#FFF2E7]`}>
                   <td className="px-5 py-4 font-medium text-[#2D2D2D]">{order.customer}</td>
                   <td className="px-5 py-4 text-[#7D5A50]">{order.menu}</td>
