@@ -1,54 +1,42 @@
-﻿import Sidebar from './layouts/Sidebar'
-import Header from './layouts/Header'
-import Dashboard from './pages/Dashboard'
-import Orders from './pages/Orders'
-import Customers from './pages/Customers'
-import CustomerDetail from './pages/CustomerDetail'
-import Components from './pages/Components'
-import CateringMenus from './pages/CateringMenus'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import { Route, Routes } from 'react-router-dom'
-import NotFound from './pages/NotFound'
-import BadRequest from './pages/BadRequest'
-import Unauthorized from './pages/Unauthorized'
-import Forbidden from './pages/Forbidden'
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import AuthLayout from './layouts/AuthLayout';
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const MenuCatering = React.lazy(() => import('./pages/MenuCatering'));
+const Keranjang = React.lazy(() => import('./pages/Keranjang'));
+const Riwayat = React.lazy(() => import('./pages/Riwayat'));
+const Login = React.lazy(() => import('./pages/auth/Login'));
+const Register = React.lazy(() => import('./pages/auth/Register'));
+const Forgot = React.lazy(() => import('./pages/auth/Forgot'));
+const NotFound = React.lazy(() => import('./pages/NotFound'));
+import Loading from './components/Loading';
+import './App.css';
 
 function App() {
   return (
-    <div id="app-container" className="bg-[#FFF5EB] min-h-screen">
-      <Routes>
-        {/* Auth Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        
-        {/* Main Routes with Layout */}
-        <Route
-          path="/*"
-          element={
-            <div className="flex">
-              <Sidebar />
-              <div id="main-content" className="flex-1 p-4">
-                <Header />
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/orders" element={<Orders />} />
-                  <Route path="/customers" element={<Customers />} />
-                  <Route path="/customers/:id" element={<CustomerDetail />} />
-                  <Route path="/components" element={<Components />} />
-                  <Route path="/catering-menus" element={<CateringMenus />} />
-                  <Route path="/400" element={<BadRequest />} />
-                  <Route path="/401" element={<Unauthorized />} />
-                  <Route path="/403" element={<Forbidden />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </div>
-            </div>
-          }
-        />
-      </Routes>
-    </div>
-  )
+    <Router>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/menu" element={<MenuCatering />} />
+            <Route path="/keranjang" element={<Keranjang />} />
+            <Route path="/riwayat" element={<Riwayat />} />
+            <Route path="/" element={<Dashboard />} />
+          </Route>
+
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot" element={<Forgot />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </Router>
+  );
 }
 
-export default App
+export default App;
