@@ -1,4 +1,7 @@
 import "./Dashboard.css";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Progress, ProgressTrack, ProgressIndicator } from "@/components/ui/progress";
 
 function Dashboard() {
   return (
@@ -100,6 +103,97 @@ function Dashboard() {
               <div className="bar bar-6" />
             </div>
           </div>
+        </section>
+      </div>
+
+      <div className="dashboard-widgets">
+        <section className="overview-card">
+          <div className="overview-card__header">
+            <h3>Dashboard Ringkas</h3>
+          </div>
+          <Tabs defaultValue="active-orders">
+            <TabsList variant="line">
+              <TabsTrigger value="active-orders">Pesanan Aktif</TabsTrigger>
+              <TabsTrigger value="popular-menu">Menu Populer</TabsTrigger>
+              <TabsTrigger value="reviews">Ulasan</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="active-orders" className="dashboard-tab-panel">
+              <div className="order-progress-grid">
+                <div className="progress-card">
+                  <div className="progress-card-header">
+                    <h4>Pesanan Dikirim</h4>
+                    <span>80%</span>
+                  </div>
+                  <Progress value={80}>
+                    <ProgressTrack>
+                      <ProgressIndicator />
+                    </ProgressTrack>
+                  </Progress>
+                </div>
+                <div className="progress-card">
+                  <div className="progress-card-header">
+                    <h4>Pesanan Selesai</h4>
+                    <span>100%</span>
+                  </div>
+                  <Progress value={100}>
+                    <ProgressTrack>
+                      <ProgressIndicator />
+                    </ProgressTrack>
+                  </Progress>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="popular-menu" className="dashboard-tab-panel">
+              <div className="popular-menu-grid">
+                <div className="menu-item">
+                  <Avatar className="bg-slate-100 text-slate-700">
+                    <AvatarFallback>NB</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="menu-item-name">Nasi Box</p>
+                    <p className="menu-item-subtitle">Pilihan favorit pelanggan</p>
+                  </div>
+                </div>
+                <div className="menu-item">
+                  <Avatar className="bg-slate-100 text-slate-700">
+                    <AvatarFallback>P</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="menu-item-name">Prasmanan</p>
+                    <p className="menu-item-subtitle">Menu prasmanan lengkap</p>
+                  </div>
+                </div>
+                <div className="menu-item">
+                  <Avatar className="bg-slate-100 text-slate-700">
+                    <AvatarFallback>SB</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="menu-item-name">Snack Box</p>
+                    <p className="menu-item-subtitle">Camilan praktis untuk acara</p>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="reviews" className="dashboard-tab-panel">
+              <div className="reviews-list">
+                <article className="review-card">
+                  <p className="review-text">“Pelayanan cepat dan makanannya enak. Sangat direkomendasikan untuk acara kantor.”</p>
+                  <span className="review-author">- Lina, Jakarta</span>
+                </article>
+                <article className="review-card">
+                  <p className="review-text">“Nasi box dan prasmanannya lengkap sekali. Pesan ulang pasti!”</p>
+                  <span className="review-author">- Budi, Surabaya</span>
+                </article>
+                <article className="review-card">
+                  <p className="review-text">“Snack box-nya sangat praktis dan rasanya enak. Pelanggan puas semua.”</p>
+                  <span className="review-author">- Rina, Bandung</span>
+                </article>
+              </div>
+            </TabsContent>
+          </Tabs>
         </section>
       </div>
     </div>
