@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import axios from 'axios';
-import './Login.css';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -59,62 +58,73 @@ export default function Login() {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-card">
-        <div className="login-card__header">
-          <div className="login-card__icon">🍽️</div>
-          <h2 className="login-card__title">Selamat Datang</h2>
-          <p className="login-card__subtitle">Masuk untuk melanjutkan ke dashboard Catering App.</p>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.12),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.12),transparent_25%),#eef5f9] flex items-center justify-center px-4 py-16">
+      <div className="w-full max-w-md rounded-[2rem] border border-slate-200/80 bg-white/95 shadow-[0_35px_80px_rgba(15,23,42,0.12)] overflow-hidden">
+        <div className="bg-gradient-to-br from-amber-500 to-orange-500 px-8 py-10 text-center text-white">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white/20 text-3xl shadow-lg shadow-black/10">🍽️</div>
+          <h2 className="text-3xl font-semibold">Selamat Datang</h2>
+          <p className="mt-3 text-sm text-white/90">Masuk untuk melanjutkan ke dashboard Catering App.</p>
         </div>
 
-        <div className="login-card__body">
-          {error && <div className="login-error">{error}</div>}
+        <div className="space-y-6 px-8 py-8">
+          {error && (
+            <div className="rounded-3xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
 
-          <form onSubmit={handleSubmit}>
-            <div className="login-field">
-              <label>Username atau Email</label>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2 text-sm">
+              <label className="block font-semibold text-slate-700">Username atau Email</label>
               <input
                 name="usernameOrEmail"
                 type="text"
                 value={credentials.usernameOrEmail}
                 onChange={handleChange}
                 placeholder="Masukkan username atau email"
-                className="login-input"
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
                 required
               />
             </div>
 
-            <div className="login-field">
-              <label>Kata Sandi</label>
+            <div className="space-y-2 text-sm">
+              <label className="block font-semibold text-slate-700">Kata Sandi</label>
               <input
                 name="password"
                 type="password"
                 value={credentials.password}
                 onChange={handleChange}
                 placeholder="Masukkan kata sandi"
-                className="login-input"
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
                 required
               />
             </div>
 
-            <div className="login-footer">
-              <label className="login-checkbox">
-                <input type="checkbox" />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-sm text-slate-600">
+              <label className="inline-flex items-center gap-2">
+                <input type="checkbox" className="h-4 w-4 rounded border-slate-300 text-amber-500 focus:ring-amber-500" />
                 Ingat saya
               </label>
-              <NavLink to="/forgot" className="login-footer__link">
+
+              <NavLink to="/forgot" className="text-amber-500 font-semibold hover:text-amber-600">
                 Lupa kata sandi?
               </NavLink>
             </div>
 
-            <button type="submit" disabled={loading} className="login-button">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-2xl bg-amber-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-amber-600 disabled:cursor-not-allowed disabled:opacity-70"
+            >
               {loading ? 'Memeriksa...' : 'Masuk'}
             </button>
           </form>
 
-          <p className="login-footer-text">
+          <p className="text-center text-sm text-slate-500">
             Belum punya akun?{' '}
-            <NavLink to="/register">Daftar sekarang</NavLink>
+            <NavLink to="/register" className="font-semibold text-amber-500 hover:text-amber-600">
+              Daftar sekarang
+            </NavLink>
           </p>
         </div>
       </div>

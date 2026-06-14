@@ -1,52 +1,65 @@
 const fs = require('fs');
 const path = require('path');
-const root = path.join('C:', 'Users', 'LENOVO', 'catering', 'src');
+const root = path.join(process.cwd(), 'src');
+
 const files = {
-  'pages/MenuCatering.jsx': `import './MenuCatering.css';
+  'pages/MenuCatering.jsx': `import { menuItems } from '../data/menuData';
 
 function MenuCatering() {
-  const menuItems = [
-    { id: 1, name: 'Paket Nasi Box', price: 'Rp 25,000', description: 'Nasi, ayam, sayur' },
-    { id: 2, name: 'Paket Seafood', price: 'Rp 50,000', description: 'Udang, cumi, ikan' },
-    { id: 3, name: 'Paket Vegetarian', price: 'Rp 30,000', description: 'Sayur-sayuran segar' },
-  ];
-
-  const handleAddMenu = () => {
-    alert('Tambah menu baru');
-  };
-
-  const handleEdit = (id) => {
-    alert('Edit menu ' + id);
-  };
-
-  const handleDelete = (id) => {
-    alert('Hapus menu ' + id);
-  };
+  const handleAddMenu = () => alert('Tambah menu baru');
+  const handleEdit = (id) => alert('Edit menu ' + id);
+  const handleDelete = (id) => alert('Hapus menu ' + id);
 
   return (
-    <div className="menu-catering">
-      <div className="page-header">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2>Menu Catering</h2>
-          <p>Kelola paket menu yang tersedia untuk pesanan catering.</p>
+          <h2 className="text-3xl font-semibold text-slate-900">Menu Catering</h2>
+          <p className="mt-2 text-sm text-slate-500">Kelola paket menu yang tersedia untuk pesanan catering.</p>
         </div>
-        <button className="add-btn" onClick={handleAddMenu}>Tambah Menu</button>
+        <button className="inline-flex items-center justify-center rounded-2xl bg-amber-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-amber-600" onClick={handleAddMenu}>
+          Tambah Menu
+        </button>
       </div>
 
-      <div className="menu-list">
-        {menuItems.map(item => (
-          <div key={item.id} className="menu-item">
-            <div className="menu-details">
-              <h3>{item.name}</h3>
-              <p>{item.description}</p>
-              <span className="price">{item.price}</span>
-            </div>
-            <div className="actions">
-              <button onClick={() => handleEdit(item.id)}>Edit</button>
-              <button onClick={() => handleDelete(item.id)}>Hapus</button>
-            </div>
+      <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">{menuItems.length} paket menu</span>
+            <p className="mt-2 text-slate-700">Kelola menu yang siap disajikan untuk acara pelanggan.</p>
           </div>
-        ))}
+          <div className="w-full max-w-sm">
+            <input type="text" placeholder="Cari menu..." className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200" />
+          </div>
+        </div>
+
+        <div className="mt-6 overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200 text-sm text-left">
+            <thead className="bg-slate-50">
+              <tr>
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Menu</th>
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Deskripsi</th>
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Harga</th>
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Aksi</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 bg-white">
+              {menuItems.map((item) => (
+                <tr key={item.id} className="hover:bg-slate-50">
+                  <td className="px-4 py-4 text-slate-900 font-medium">{item.name}</td>
+                  <td className="px-4 py-4 text-slate-600">{item.description}</td>
+                  <td className="px-4 py-4 text-slate-900 font-semibold">{item.price}</td>
+                  <td className="px-4 py-4">
+                    <div className="flex flex-wrap gap-2">
+                      <button className="rounded-2xl bg-sky-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-sky-700" onClick={() => handleEdit(item.id)}>Edit</button>
+                      <button className="rounded-2xl bg-rose-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-rose-700" onClick={() => handleDelete(item.id)}>Hapus</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -54,150 +67,56 @@ function MenuCatering() {
 
 export default MenuCatering;
 `,
-  'pages/MenuCatering.css': `.menu-catering {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-
-.page-header h2 {
-  margin: 0;
-  color: #111827;
-}
-
-.page-header p {
-  margin: 8px 0 0;
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.add-btn {
-  background-color: #0f766e;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-weight: 600;
-}
-
-.add-btn:hover {
-  background-color: #115e59;
-}
-
-.menu-list {
-  display: grid;
-  gap: 20px;
-}
-
-.menu-item {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 24px;
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.menu-details {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.menu-item h3 {
-  margin: 0;
-  color: #111827;
-  font-size: 20px;
-}
-
-.menu-item p {
-  margin: 0;
-  color: #6b7280;
-}
-
-.price {
-  font-weight: 700;
-  color: #0f766e;
-}
-
-.actions {
-  display: flex;
-  gap: 12px;
-}
-
-.actions button {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.3s;
-}
-
-.actions button:hover {
-  transform: translateY(-1px);
-}
-
-.actions button:first-child {
-  background-color: #0d9488;
-  color: white;
-}
-
-.actions button:last-child {
-  background-color: #dc2626;
-  color: white;
-}
-`,
-  'pages/KeranjangBelanja.jsx': `import './KeranjangBelanja.css';
+  'pages/KeranjangBelanja.jsx': `import { carts } from '../data/orderData';
 
 function KeranjangBelanja() {
-  const carts = [
-    { id: 1, customer: 'John Doe', items: ['Paket Nasi Box', 'Paket Seafood'], total: 'Rp 75,000' },
-    { id: 2, customer: 'Jane Smith', items: ['Paket Vegetarian'], total: 'Rp 30,000' },
-  ];
-
-  const handleProcess = (id) => {
-    alert('Proses keranjang ' + id);
-  };
-
-  const handleCancel = (id) => {
-    alert('Batal keranjang ' + id);
-  };
+  const handleProcess = (id) => alert('Proses keranjang ' + id);
+  const handleCancel = (id) => alert('Batal keranjang ' + id);
 
   return (
-    <div className="keranjang-belanja">
-      <div className="page-header">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2>Keranjang Belanja</h2>
-          <p>Kelola pesanan yang sedang menunggu konfirmasi atau pengiriman.</p>
+          <h2 className="text-3xl font-semibold text-slate-900">Keranjang Belanja</h2>
+          <p className="mt-2 text-sm text-slate-500">Kelola pesanan yang sedang menunggu konfirmasi atau pengiriman.</p>
         </div>
       </div>
-      <div className="cart-list">
-        {carts.map(cart => (
-          <div key={cart.id} className="cart-item">
-            <div>
-              <div className="cart-title">
-                <h3>{cart.customer}</h3>
-                <span className="cart-id">#{cart.id}</span>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
+          <span className="text-xs uppercase tracking-[0.24em] text-slate-500">Pesanan Aktif</span>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{carts.length}</p>
+        </div>
+        <div className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
+          <span className="text-xs uppercase tracking-[0.24em] text-slate-500">Item dalam Keranjang</span>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{carts.reduce((sum, c) => sum + c.items.length, 0)}</p>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        {carts.map((cart) => (
+          <div key={cart.id} className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900">{cart.customer}</h3>
+                <span className="text-sm text-slate-500">#{cart.id}</span>
               </div>
-              <ul>
-                {cart.items.map((item, index) => <li key={index}>{item}</li>)}
-              </ul>
-              <span className="total">Total: {cart.total}</span>
+              <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-700">Menunggu</span>
             </div>
-            <div className="actions">
-              <button onClick={() => handleProcess(cart.id)}>Proses</button>
-              <button onClick={() => handleCancel(cart.id)}>Batal</button>
+
+            <ul className="space-y-2 pb-4 text-slate-600">
+              {cart.items.map((item, index) => (
+                <li key={index} className="list-disc pl-5">{item}</li>
+              ))}
+            </ul>
+
+            <div className="flex flex-col gap-4 border-t border-slate-200 pt-4 sm:flex-row sm:items-center sm:justify-between">
+              <span className="text-sm font-semibold text-slate-900">Total: {cart.total}</span>
+              <div className="flex flex-wrap gap-3">
+                <button className="rounded-2xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-700" onClick={() => handleProcess(cart.id)}>Proses</button>
+                <button className="rounded-2xl bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700" onClick={() => handleCancel(cart.id)}>Batal</button>
+              </div>
             </div>
           </div>
         ))}
@@ -208,143 +127,63 @@ function KeranjangBelanja() {
 
 export default KeranjangBelanja;
 `,
-  'pages/KeranjangBelanja.css': `.keranjang-belanja {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
 
-.page-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.page-header h2 {
-  margin: 0;
-  color: #111827;
-}
-
-.page-header p {
-  margin: 8px 0 0;
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.cart-list {
-  display: grid;
-  gap: 20px;
-}
-
-.cart-item {
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 24px;
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.cart-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.cart-item h3 {
-  margin: 0;
-  color: #111827;
-}
-
-.cart-id {
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.cart-item ul {
-  margin: 0 0 12px 0;
-  padding-left: 20px;
-  color: #6b7280;
-}
-
-.total {
-  font-weight: 700;
-  color: #0f766e;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.actions button {
-  padding: 12px 18px;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.3s;
-}
-
-.actions button:hover {
-  transform: translateY(-1px);
-}
-
-.actions button:first-child {
-  background-color: #0d9488;
-  color: white;
-}
-
-.actions button:last-child {
-  background-color: #dc2626;
-  color: white;
-}
-`,
-  'pages/RiwayatPembeli.jsx': `import './RiwayatPembeli.css';
+  'pages/RiwayatPembeli.jsx': `import { histories } from '../data/orderData';
 
 function RiwayatPembeli() {
-  const histories = [
-    { id: 1, customer: 'John Doe', orderDate: '2023-10-01', total: 'Rp 75,000', status: 'Completed' },
-    { id: 2, customer: 'Jane Smith', orderDate: '2023-10-02', total: 'Rp 30,000', status: 'Completed' },
-    { id: 3, customer: 'Bob Johnson', orderDate: '2023-10-03', total: 'Rp 50,000', status: 'Pending' },
-  ];
-
   return (
-    <div className="riwayat-pembeli">
-      <div className="page-header">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2>Riwayat Pembeli</h2>
-          <p>Lihat semua pesanan yang sudah selesai dan yang masih pending.</p>
+          <h2 className="text-3xl font-semibold text-slate-900">Riwayat Pembeli</h2>
+          <p className="mt-2 text-sm text-slate-500">Lihat semua pesanan yang sudah selesai dan yang masih pending.</p>
         </div>
       </div>
-      <div className="table-card">
-        <table className="history-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Customer</th>
-              <th>Order Date</th>
-              <th>Total</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {histories.map(history => (
-              <tr key={history.id}>
-                <td>{history.id}</td>
-                <td>{history.customer}</td>
-                <td>{history.orderDate}</td>
-                <td>{history.total}</td>
-                <td className={history.status === 'Completed' ? 'completed' : 'pending'}>{history.status}</td>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
+          <span className="text-xs uppercase tracking-[0.24em] text-slate-500">Selesai</span>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{histories.filter(h => h.status === 'Completed').length}</p>
+        </div>
+        <div className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
+          <span className="text-xs uppercase tracking-[0.24em] text-slate-500">Pending</span>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{histories.filter(h => h.status !== 'Completed').length}</p>
+        </div>
+      </div>
+
+      <div className="rounded-[24px] border border-slate-200 bg-white shadow-sm overflow-hidden">
+        <div className="border-b border-slate-200 px-6 py-5">
+          <h3 className="text-lg font-semibold text-slate-900">Ringkasan Pesanan</h3>
+          <p className="mt-2 text-sm text-slate-500">Data transaksi terakhir ditampilkan di bawah.</p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200 text-sm">
+            <thead className="bg-slate-50 text-left text-xs uppercase tracking-[0.2em] text-slate-500">
+              <tr>
+                <th className="px-4 py-4">ID</th>
+                <th className="px-4 py-4">Customer</th>
+                <th className="px-4 py-4">Order Date</th>
+                <th className="px-4 py-4">Total</th>
+                <th className="px-4 py-4">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-200 bg-white">
+              {histories.map((history) => (
+                <tr key={history.id} className="hover:bg-slate-50">
+                  <td className="px-4 py-4 font-medium text-slate-900">{history.id}</td>
+                  <td className="px-4 py-4 text-slate-600">{history.customer}</td>
+                  <td className="px-4 py-4 text-slate-600">{history.orderDate}</td>
+                  <td className="px-4 py-4 text-slate-900 font-semibold">{history.total}</td>
+                  <td className="px-4 py-4">
+                    <span className={"inline-flex rounded-full px-3 py-1 text-xs font-semibold " + (history.status === 'Completed' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700')}>
+                      {history.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -352,80 +191,12 @@ function RiwayatPembeli() {
 
 export default RiwayatPembeli;
 `,
-  'pages/RiwayatPembeli.css': `.riwayat-pembeli {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.page-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.page-header h2 {
-  margin: 0;
-  color: #111827;
-}
-
-.page-header p {
-  margin: 8px 0 0;
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.table-card {
-  background: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
-  overflow: hidden;
-}
-
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.history-table th,
-.history-table td {
-  padding: 18px 16px;
-  text-align: left;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-}
-
-.history-table th {
-  background-color: #f8f9fa;
-  font-weight: 700;
-  color: #111827;
-}
-
-.history-table tbody tr:nth-child(even) {
-  background: #f8fafc;
-}
-
-.completed {
-  color: #16a34a;
-  font-weight: 700;
-}
-
-.pending {
-  color: #f59e0b;
-  font-weight: 700;
-}
-
-@media (max-width: 768px) {
-  .history-table th,
-  .history-table td {
-    padding: 14px 12px;
-  }
-}
-`
 };
 
 Object.entries(files).forEach(([relativePath, content]) => {
   const targetPath = path.join(root, relativePath);
+  const dir = path.dirname(targetPath);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(targetPath, content, 'utf8');
   console.log(`Updated ${targetPath}`);
 });

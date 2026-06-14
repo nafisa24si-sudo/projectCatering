@@ -2,117 +2,67 @@ from pathlib import Path
 
 root = Path(r"C:\Users\LENOVO\catering\src")
 files = {
-    "components/Sidebar.css": '''.sidebar {
-  width: 260px;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  padding: 32px 24px;
-  background: #eefaf3;
-  border-right: 1px solid rgba(15, 23, 42, 0.08);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sidebar-header {
-  margin-bottom: 32px;
-}
-
-.sidebar-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 30px;
-  font-weight: 800;
-  color: #0f766e;
-}
-
-.sidebar-brand .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #34c38f;
-}
-
-.sidebar-subtitle {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.sidebar-nav {
-  display: grid;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border-radius: 18px;
-  color: #0f5132;
-  background: transparent;
-  border: 1px solid transparent;
-  transition: all 0.25s ease;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  background: #d8faeb;
-  border-color: #b7f0d4;
-}
-
-.nav-link span.icon {
-  font-size: 18px;
-}
-
-.sidebar-footer {
-  margin-top: auto;
-  padding: 18px;
-  border-radius: 20px;
-  background: #d8f5e3;
-  color: #0f5132;
-  font-size: 14px;
-  line-height: 1.5;
-}
-''',
+    
     "components/Sidebar.jsx": '''import { NavLink } from 'react-router-dom';
-import './Sidebar.css';
 
 function Sidebar() {
+  const linkBase = 'flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm transition-all duration-200 ease-in-out';
+
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
-        <div className="sidebar-brand">
-          Sedap
-          <span className="dot" />
+    <div className="fixed left-0 top-0 w-[280px] min-h-screen flex flex-col justify-between px-6 py-7 bg-slate-800 text-slate-50">
+      <div className="mb-8">
+        <div className="flex items-center gap-3.5 text-xl font-extrabold uppercase tracking-[1px] text-amber-500">
+          Catering
+          <span className="w-8 h-8 rounded-[6px] bg-amber-500 grid place-items-center text-white font-extrabold text-lg" />
         </div>
-        <div className="sidebar-subtitle">Modern Admin Dashboard</div>
+        <div className="mt-2 text-xs text-slate-400 leading-6">Admin Panel</div>
       </div>
-      <nav className="sidebar-nav">
-        <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-          <span className="icon">🏠</span>
-          Dashboard
+
+      <nav className="grid gap-2 mt-7">
+        <NavLink to="/dashboard" className={({ isActive }) => `${linkBase} ${isActive ? 'text-white bg-amber-500 font-semibold shadow-lg shadow-amber-500/30' : 'text-slate-300 hover:text-slate-50 hover:bg-white/10'}`}>
+          {({ isActive }) => (
+            <>
+              <span className={`w-6 h-6 rounded-[6px] grid place-items-center ${isActive ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-300'}`}>
+                🏠
+              </span>
+              Dashboard
+            </>
+          )}
         </NavLink>
-        <NavLink to="/menu" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-          <span className="icon">🛒</span>
-          Menu Catering
+        <NavLink to="/menu" className={({ isActive }) => `${linkBase} ${isActive ? 'text-white bg-amber-500 font-semibold shadow-lg shadow-amber-500/30' : 'text-slate-300 hover:text-slate-50 hover:bg-white/10'}`}>
+          {({ isActive }) => (
+            <>
+              <span className={`w-6 h-6 rounded-[6px] grid place-items-center ${isActive ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-300'}`}>
+                🛒
+              </span>
+              Menu Catering
+            </>
+          )}
         </NavLink>
-        <NavLink to="/keranjang" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-          <span className="icon">🧾</span>
-          Keranjang Belanja
+        <NavLink to="/keranjang" className={({ isActive }) => `${linkBase} ${isActive ? 'text-white bg-amber-500 font-semibold shadow-lg shadow-amber-500/30' : 'text-slate-300 hover:text-slate-50 hover:bg-white/10'}`}>
+          {({ isActive }) => (
+            <>
+              <span className={`w-6 h-6 rounded-[6px] grid place-items-center ${isActive ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-300'}`}>
+                🧾
+              </span>
+              Keranjang Belanja
+            </>
+          )}
         </NavLink>
-        <NavLink to="/riwayat" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-          <span className="icon">📜</span>
-          Riwayat Pembeli
+        <NavLink to="/riwayat" className={({ isActive }) => `${linkBase} ${isActive ? 'text-white bg-amber-500 font-semibold shadow-lg shadow-amber-500/30' : 'text-slate-300 hover:text-slate-50 hover:bg-white/10'}`}>
+          {({ isActive }) => (
+            <>
+              <span className={`w-6 h-6 rounded-[6px] grid place-items-center ${isActive ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-300'}`}>
+                📜
+              </span>
+              Riwayat Pembeli
+            </>
+          )}
         </NavLink>
       </nav>
-      <div className="sidebar-footer">
-        Silakan kelola menu dan pesanan dengan mudah di sini.
+
+      <div className="mt-auto p-4 rounded-xl bg-white/10 text-slate-300 text-xs leading-6 text-center">
+        Kelola menu catering dan pesanan pelanggan dengan efisien.
       </div>
     </div>
   );

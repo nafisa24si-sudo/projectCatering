@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260" viewBox="0 0 400 260" fill="none">
+  <rect width="400" height="260" rx="16" fill="#fff4eb" />
+  <rect x="36" y="36" width="328" height="64" rx="10" fill="#d87d59" />
+  <rect x="56" y="56" width="200" height="24" rx="6" fill="#fff" />
+  <circle cx="80" cy="160" r="28" fill="#d87d59" />
+  <text x="64" y="164" fill="#fff" font-size="16" font-family="Arial">Focus</text>
+  <text x="56" y="112" fill="#7a3a25" font-size="14" font-family="Arial">Ref — simpan nilai tanpa render</text>
+  <text x="56" y="132" fill="#b07865" font-size="12" font-family="Arial">countRef.current</text>
+</svg>

@@ -1,4 +1,4 @@
-﻿.sidebar {
+.sidebar {
   width: 280px;
   min-height: 100vh;
   position: fixed;
@@ -103,4 +103,3 @@
   line-height: 1.6;
   text-align: center;
 }
-  
