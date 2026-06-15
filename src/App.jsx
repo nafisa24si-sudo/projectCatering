@@ -1,7 +1,11 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import Loading from './components/Loading';
+
 const Dashboard = React.lazy(() => import('./pages/Dashboard'));
 const MenuCatering = React.lazy(() => import('./pages/MenuCatering'));
 const Keranjang = React.lazy(() => import('./pages/Keranjang'));
@@ -14,34 +18,39 @@ const Login = React.lazy(() => import('./pages/auth/Login'));
 const Register = React.lazy(() => import('./pages/auth/Register'));
 const Forgot = React.lazy(() => import('./pages/auth/Forgot'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
-import Loading from './components/Loading';
 
 function App() {
   return (
     <Router>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/menu" element={<MenuCatering />} />
-            <Route path="/keranjang" element={<Keranjang />} />
-            <Route path="/riwayat" element={<Riwayat />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/customers/:id" element={<CustomerDetail />} />
-            <Route path="/pesanan" element={<Orders />} />
-            <Route path="/components" element={<Components />} />
-            <Route path="/" element={<Dashboard />} />
-          </Route>
+      <AuthProvider>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            {/* Protected routes — hanya bisa diakses jika sudah login */}
+            <Route element={<ProtectedRoute />}>
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/menu" element={<MenuCatering />} />
+                <Route path="/keranjang" element={<Keranjang />} />
+                <Route path="/riwayat" element={<Riwayat />} />
+                <Route path="/customers" element={<Customers />} />
+                <Route path="/customers/:id" element={<CustomerDetail />} />
+                <Route path="/pesanan" element={<Orders />} />
+                <Route path="/components" element={<Components />} />
+              </Route>
+            </Route>
 
-          <Route element={<AuthLayout />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot" element={<Forgot />} />
-          </Route>
+            {/* Auth routes — redirect ke /dashboard jika sudah login */}
+            <Route element={<AuthLayout />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot" element={<Forgot />} />
+            </Route>
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </AuthProvider>
     </Router>
   );
 }
