@@ -1,18 +1,8 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/((?!assets|favicon\\.svg|icons\\.svg|catering-logo\\.svg|sajian-kita-logo\\.png|food-.*\\.jpg|\\.well-known).*)",
+      "destination": "/index.html"
     }
   ]
 }
