@@ -96,12 +96,8 @@ export default function Login() {
 
       {/* Logo pojok kiri atas */}
       <div className="absolute top-6 left-8 z-30 flex items-center gap-2.5">
-        <img src="/sajian-kita-logo.png" alt="Sajian Kita"
-          className="h-12 w-12 rounded-full object-cover shadow-md border-2 border-white"
-          onError={(e) => {
-            e.currentTarget.outerHTML =
-              '<div class="flex h-12 w-12 items-center justify-center rounded-full bg-[#C96E4A] text-2xl shadow-md border-2 border-white">🍽️</div>';
-          }} />
+        <img src="/sajian-kita-logo.svg" alt="Sajian Kita"
+          className="h-14 w-14 object-contain" />
         <div className="leading-tight">
           <p className="text-sm font-bold text-[#3D1F0D]">Sajian Kita</p>
           <p className="text-[10px] text-[#9A6651] tracking-widest uppercase">Catering</p>

@@ -95,7 +95,7 @@ export default function Register() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-6">
-          <img src="/catering-logo.png" alt="CateringHub" className="w-32 h-32 mx-auto mb-3" />
+          <img src="/sajian-kita-logo.svg" alt="Sajian Kita" className="w-32 h-32 mx-auto mb-3" />
           <p className="text-[#7D5A50] text-sm">Buat akun baru Anda</p>
         </div>
 

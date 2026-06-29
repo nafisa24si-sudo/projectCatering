@@ -67,7 +67,7 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <img src="/catering-logo.svg" alt="CateringHub" className="w-32 h-32 mx-auto mb-4" />
+          <img src="/sajian-kita-logo.svg" alt="Sajian Kita" className="w-32 h-32 mx-auto mb-4" />
           <p className="text-[#7D5A50] text-sm">Masuk ke akun Anda</p>
         </div>
 

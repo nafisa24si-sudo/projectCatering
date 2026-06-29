@@ -6,6 +6,7 @@
     FaPlus,
     FaPuzzlePiece,
     FaUtensils,
+    FaCrown,
 } from "react-icons/fa";
 
 import { NavLink } from "react-router-dom";
@@ -43,6 +44,12 @@ export default function Sidebar() {
                         <NavLink to="/customers" className={menuClass}>
                             <FaUsers className="text-xl" />
                             <span>Pelanggan</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/member" className={menuClass}>
+                            <FaCrown className="text-xl" />
+                            <span>Member & Loyalti</span>
                         </NavLink>
                     </li>
                     <li>

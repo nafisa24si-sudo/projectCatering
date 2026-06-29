@@ -1,4 +1,4 @@
-// Zona 2: Business Logic Layer — Auth Service
+
 import { supabase } from './supabase'
 
 /**

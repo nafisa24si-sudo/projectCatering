@@ -1,4 +1,4 @@
-// Zona 3: Data Access Layer — Supabase Client Instance
+
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL

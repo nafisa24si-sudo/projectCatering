@@ -4,11 +4,11 @@ import Header from '../components/Header';
 
 function MainLayout() {
   return (
-    <div className="min-h-screen bg-[#fff1e6]">
+    <div className="min-h-screen bg-[#FFF8F5]">
       <Sidebar />
       <div className="lg:ml-[280px] flex min-h-screen flex-col">
         <Header />
-        <main className="flex-1 pt-24 px-4 pb-10 sm:px-6 lg:px-8 bg-[#fff4eb]">
+        <main className="flex-1 pt-24 px-4 pb-10 sm:px-6 lg:px-8 bg-[#FFF8F5]">
           <div className="mx-auto w-full max-w-7xl">
             <Outlet />
           </div>
